@@ -1,0 +1,18 @@
+@using CdOrganizer.Models;
+<h1>CD Organizer</h1>
+<ul>
+
+@if (Model.Count == 0)
+{
+  <p>You have no CDs in your CD organizer!</p>
+}
+@if(Model.Count != 0)
+{
+  @foreach (Cd oneCd in Model)
+  {
+    <li>@oneCd.GetTitle()</li>
+  }
+}
+
+</ul>
+<a href="/cds/new">Add a new CD.</a>
