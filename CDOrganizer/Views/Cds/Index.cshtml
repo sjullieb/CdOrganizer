@@ -10,9 +10,13 @@
 {
   @foreach (Cd oneCd in Model)
   {
-    <li>@oneCd.GetTitle()</li>
+    <li><a href='/cds/@oneCd.GetId()'>@oneCd.GetTitle()</a></li>
   }
 }
 
 </ul>
 <a href="/cds/new">Add a new CD.</a>
+
+<form action="/cds/delete" method="post">
+  <button type="submit" name="button">Clear All Items</button>
+</form>

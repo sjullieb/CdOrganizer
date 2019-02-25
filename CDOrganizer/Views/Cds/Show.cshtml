@@ -1,0 +1,10 @@
+@using CdOrganizer.Models;
+<h1>CD details</h1>
+<p>@Model.GetTitle()</p>
+
+<a href='/cds/new'>Add another item</a>
+<a href='/cds'>View all items</a>
+
+<form action='/cds/delete/@Model.GetId()' method='post'>
+  <button type='submit'>Delete</button>
+</form>
