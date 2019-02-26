@@ -11,11 +11,11 @@ namespace CdOrganizer.Controllers
     {
       return View(Cd.GetAll());
     }
-    [HttpGet("/cds/new")]
-    public ActionResult New()
-    {
-      return View();
-    }
+    // [HttpGet("/cds/new")]
+    // public ActionResult New()
+    // {
+    //   return View();
+    // }
     [HttpPost("/cds")]
     public ActionResult Create(string title)
     {
@@ -26,21 +26,67 @@ namespace CdOrganizer.Controllers
     public ActionResult DeleteAll()
     {
       Cd.ClearAll();
-      return View();
+      return RedirectToAction("Index");
     }
 
-    [HttpGet("/cds/{id}")]
-    public ActionResult Show(int id)
-    {
-      Cd oneCd = Cd.Find(id);
-      return View(oneCd);
-    }
+    // [HttpGet("/cds/{id}")]
+    // public ActionResult Show(int id)
+    // {
+    //   Cd oneCd = Cd.Find(id);
+    //   return View(oneCd);
+    // }
 
     [HttpPost("/cds/delete/{id}")]
     public ActionResult Delete(int id)
     {
       Cd.Delete(id);
       return RedirectToAction("Index");
+    }
+
+    [HttpGet("/cds/{id}/edit")]
+    public ActionResult Edit(int id)
+    {
+      Cd oneCd = Cd.Find(id);
+      return View(oneCd);
+    }
+
+    [HttpPost("/cds/{id}")]
+    public ActionResult Update(int id, string title)
+    {
+      Cd oneCd = Cd.Find(id);
+      oneCd.SetTitle(title);
+      return RedirectToAction("Index");
+    }
+
+    [HttpGet("/artists/{artistId}/cds/{cdId}")]
+    public ActionResult Show(int artistId, int cdId)
+    {
+      Cd oneCd = Cd.Find(cdId);
+      Dictionary<string, object> model = new Dictionary<string, object>();
+      Artist oneArtist = Artist.Find(artistId);
+      model.Add("cds", oneCd);
+      model.Add("artist", oneArtist);
+      return View(model);
+    }
+
+    [HttpGet("/artists/{artistId}/cds/new")]
+    public ActionResult New(int artistId)
+    {
+       Artist artist = Artist.Find(artistId);
+       return View(artist);
+    }
+
+    [HttpPost("/artists/{artistId}/cds")]
+    public ActionResult Create(int artistId, string cdTitle)
+    {
+      Dictionary<string, object> model = new Dictionary<string, object>();
+      Artist foundArtist = Artist.Find(artistId);
+      Cd newCd = new Cd(cdTitle);
+      foundArtist.AddCd(newCd);
+      List<Cd> artistCds = foundArtist.GetCds();
+      model.Add("cds", artistCds);
+      model.Add("artist", foundArtist);
+      return View("Show", model);
     }
   }
 }

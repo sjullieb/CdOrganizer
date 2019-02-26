@@ -1,0 +1,8 @@
+@using CdOrganizer.Models;
+<h1>Change title</h1>
+
+<form action='/cds/@Model.GetId()/' method="post">
+  <label for="title">Change the CD title</label>
+  <input id="title" name="title" type="text" value=@Model.GetTitle()>
+  <button type="submit">Submit</button>
+</form>

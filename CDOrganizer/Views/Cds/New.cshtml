@@ -1,3 +1,15 @@
+@using CdOrganizer.Models;
+<h1>Add a new CD to @Model.GetName()</h1>
+
+<form action='/artists/@Model.GetId()/cds' method='post'>
+  <input id='artistId' name='artistId' type='hidden' value='@Model.GetId()'>
+  <label for='cdTitle'>Item description</label>
+  <input id='cdTitle' name='cdTitle' type='text'>
+  <button type='submit'>Add CD</button>
+</form>
+
+
+
 <h1>CD organizer</h1>
 
 <form action="/cds" method="post">
