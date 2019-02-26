@@ -5,7 +5,7 @@ using CdOrganizer.Models;
 
 namespace CdOrganizer.Controllers
 {
-  public class ArtistController : Controller
+  public class ArtistsController : Controller
   {
     [HttpGet("/artists")]
     public ActionResult Index()
@@ -38,6 +38,17 @@ namespace CdOrganizer.Controllers
       return View(dict);
     }
 
-
+    [HttpPost("/artists/{artistId}/cds")]
+    public ActionResult Create(int artistId, string cdTitle)
+    {
+      Dictionary<string, object> model = new Dictionary<string, object>();
+      Artist foundArtist = Artist.Find(artistId);
+      Cd newCd = new Cd(cdTitle);
+      foundArtist.AddCd(newCd);
+      List<Cd> artistCds = foundArtist.GetCds();
+      model.Add("cds", artistCds);
+      model.Add("artist", foundArtist);
+      return View("Show", model);
+    }
   }
 }

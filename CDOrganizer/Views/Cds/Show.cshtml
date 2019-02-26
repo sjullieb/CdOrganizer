@@ -1,7 +1,7 @@
 @using CdOrganizer.Models;
 <h1>CD details</h1>
 
-<h2>@Model["cds"].GetTitle()</h2>
+<h2>@Model["cd"].GetTitle()</h2>
 <h3>Category: @Model["artist"].GetName()</h3>
 
 <a href='/artists/@Model["artist"].GetId()/cds/new'>Add another CD</a>

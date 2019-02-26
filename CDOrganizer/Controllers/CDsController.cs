@@ -64,7 +64,7 @@ namespace CdOrganizer.Controllers
       Cd oneCd = Cd.Find(cdId);
       Dictionary<string, object> model = new Dictionary<string, object>();
       Artist oneArtist = Artist.Find(artistId);
-      model.Add("cds", oneCd);
+      model.Add("cd", oneCd);
       model.Add("artist", oneArtist);
       return View(model);
     }
@@ -74,19 +74,6 @@ namespace CdOrganizer.Controllers
     {
        Artist artist = Artist.Find(artistId);
        return View(artist);
-    }
-
-    [HttpPost("/artists/{artistId}/cds")]
-    public ActionResult Create(int artistId, string cdTitle)
-    {
-      Dictionary<string, object> model = new Dictionary<string, object>();
-      Artist foundArtist = Artist.Find(artistId);
-      Cd newCd = new Cd(cdTitle);
-      foundArtist.AddCd(newCd);
-      List<Cd> artistCds = foundArtist.GetCds();
-      model.Add("cds", artistCds);
-      model.Add("artist", foundArtist);
-      return View("Show", model);
     }
   }
 }
